@@ -1,0 +1,23 @@
+
+python setup.py sdist bdist_wheel
+
+twine upload dist/*
+
+twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+python:
+  - 3.5
+  - 3.6
+  - 3.7
+  - 3.8
+
+
+CFLAGS='-Wall -O0 -g -fsanitize=address -fno-omit-frame-pointer -fsanitize-recover=address' python setup.py install --force
+ASAN_OPTIONS=halt_on_error=0 LD_PRELOAD=/usr/lib/gcc/x86_64-linux-gnu/7/libasan.so python tst.py
+
+sudo apt-get install python3.8-dbg
+sudo python3.8-dbg -m pip install cpython
+sudo python3.8-dbg -m pip install uvloop
+CFLAGS='-Wall -O0 -g -fsanitize=address -fno-omit-frame-pointer -fsanitize-recover=address' python3.8-dbg setup.py install --force
+ASAN_OPTIONS=halt_on_error=0 LD_PRELOAD=/usr/lib/gcc/x86_64-linux-gnu/7/libasan.so python3.8-dbg tst.py
+
