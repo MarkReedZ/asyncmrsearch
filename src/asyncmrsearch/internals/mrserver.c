@@ -1,7 +1,7 @@
 
 
 #include <Python.h>
-#include <python3.8d/structmember.h>
+#include <structmember.h>
 #include <stdbool.h>
 
 #include "mrserver.h"
